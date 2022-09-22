@@ -31,38 +31,71 @@ class Car:
 
 class TownCar(Car):
     def __init__(self, fuel_rate, speed, color, name, is_police=False):
-        Car.__init__(self, speed, color, name, is_police=False)
+        super().__init__(speed, color, name, is_police=False)
         self.fuel_rate = fuel_rate
 
     def show_rate(self):
         print(f'Fuel rate town car: {self.fuel_rate}')
 
+    def show_speed(self):
+        if self.speed <= 60:
+            print(f'{self.speed} traffic is allowed ')
+        else:
+            print(f'You exceeded the speed limit by {60 - self.speed}')
 
-class SportCar(Car):
-    pass
+
+class SportCar(TownCar, Car):
+    def __int__(self, fuel_rate, speed, color, name, is_police=False):
+        super().__init__(fuel_rate, speed, color, name, is_police=False)
+
+    def show_rate(self):
+        print(f'Fuel rate town car: {self.fuel_rate}')
 
 
 class WorkCar(Car):
     def show_speed(self):
         if self.speed > 40:
-            return f'\nYour speed is higher than allow! Your speed is {self.speed}'
+            print(f'\nspeeding on {self.speed - 40}')
         else:
-            return f'Speed of {self.name} is normal'
+            print(f'Speed of {self.name} is normal')
 
 
 class PoliceCar(Car):
-    pass
+    def __init__(self, speed, color, name, is_police):
+        super().__init__(speed, color, name, is_police)
+
+    def show_police(self):
+        if self.is_police:
+            print(f"It's a police car")
+        else:
+            print(f'This is not a police car')
 
 
-town = TownCar('Audi', 70, 'blue', False)
-print('1:\n' + town.go(), town.show_speed(), town.turn('left'), town.turn('right'), town.stop())
+town = TownCar(8.5, 59, 'red', 'Astra')
+town.show_rate()
+town.show_speed()
+town.turn('left')
+town.turn('right')
+town.stop()
+print()
 
-sport = SportCar('AudiRS', 170, 'red', False)
-print('2:\n' + sport.go(), sport.show_speed(), sport.turn('left'), sport.stop())
+sport = SportCar(15, 170, 'red', 'Audi R8')
+sport.go()
+sport.show_speed()
+sport.turn('left')
+sport.stop()
+print()
 
-work = WorkCar('WAZ', 30, 'red', False)
-print('3:\n' + work.go(), work.show_speed(), work.turn('right'), work.stop())
+work = WorkCar(30, 'red', 'MAZ', False)
+work.go()
+work.show_speed()
+work.turn('right')
+work.stop()
+print()
 
-police = PoliceCar('Kia', 100, 'yellow', True)
-print('4:\n' + work.go(), work.show_speed(), work.turn('right'), work.stop())
-
+police = PoliceCar(100, 'yellow', 'Kia', True)
+work.go()
+work.show_speed()
+work.turn('right')
+work.stop()
+print()
